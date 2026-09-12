@@ -1,49 +1,49 @@
 
-const productosPeluqueria = ["Shampoo Keratina", "Acondicionador Brillo", "Tintura 7.1", "Crema de Peinar", "Tintura 6.1"];
-console.log("Inventario Inicial:", productosPeluqueria);
+class Socio {
+    
+    constructor(nombre, edad, categoria, cuotaBase) {
+        this.nombre = nombre;
+        this.edad = parseInt(edad);
+        this.categoria = categoria; // Ej: "Pase Libre", "Musculación", "Crossfit"
+        this.cuotaBase = parseFloat(cuotaBase);
+    }
+    
+    //Aplica un recargo del 10% por pago fuera de término
+    calcularCuotaConRecargo() {
+        const recargo = this.cuotaBase * 0.10;
+        this.cuotaBase += recargo;
+        return this.cuotaBase;
+    }
 
-productosPeluqueria.push("Fijador Extra Fuerte"); 
-
-productosPeluqueria.unshift("Tratamiento Anticaída"); 
-
-console.log("Inventario tras reponer stock:", productosPeluqueria);
-
-console.log("Producto a modificar:", productosPeluqueria[3]); 
-
-productosPeluqueria[3] = "Tintura 8.1 (Rubio Claro)"; 
-console.log("Inventario corregido:", productosPeluqueria);
-
-
-let productoBuscar = prompt("Ingrese el nombre del producto de peluquería que desea buscar:");
-
-if (productosPeluqueria.includes(productoBuscar)) {
-    let indiceEncontrado = productosPeluqueria.indexOf(productoBuscar);
-    alert(`¡Éxito! El producto '${productoBuscar}' existe y está en el índice: ${indiceEncontrado}`);
-    console.log(`Búsqueda: '${productoBuscar}' encontrado en índice ${indiceEncontrado}`);
-} else {
-    alert(`El producto '${productoBuscar}' no se encuentra en el inventario.`);
-    console.log(`Búsqueda: '${productoBuscar}' no existe en el array.`);
+    //Cambia la categoría del socio
+    actualizarCategoria(nuevaCategoria) {
+        this.categoria = nuevaCategoria;
+    }
 }
-let indiceModificar = parseInt(prompt("Ingrese el número de índice que desea cambiar (0 a " + (productosPeluqueria.length - 1) + "):"));
+const socio1 = new Socio("Gonzalo Pérez", 28, "Musculación", 15000);
+const socio2 = new Socio("Martina Gómez", 34, "Pase Libre", 22000);
+const socio3 = new Socio("Ariel Rodríguez", 19, "Crossfit", 18000);
+
+const padronSocios = [socio1, socio2, socio3];
+
+console.log("--- ESTADO INICIAL DE LOS SOCIOS ---");
+console.log(socio1);
+console.log(socio2);
+console.log(socio3);
+
+console.log("\n--- EJECUTANDO MÉTODOS Y MODIFICANDO PROPIEDADES ---");
+
+// recargo para el socio1 (Modifica cuotaBase)
+socio1.calcularCuotaConRecargo();
+console.log(`Se aplicó recargo a ${socio1.nombre}. Nueva cuota: $${socio1.cuotaBase}`);
+
+// Actualizamos la categoría de la socio2 (Modifica categoria)
+socio2.actualizarCategoria("VIP Premium");
+console.log(`✨ ${socio2.nombre} cambió su categoría a: ${socio2.categoria}`);
 
 
-if (!isNaN(indiceModificar) && indiceModificar >= 0 && indiceModificar < productosPeluqueria.length) {
-    
-    
-    let nuevoProducto = prompt(`El producto actual en el índice ${indiceModificar} es '${productosPeluqueria[indiceModificar]}'. Ingrese el nuevo nombre:`);
-    
-    productosPeluqueria.splice(indiceModificar, 1, nuevoProducto);
-    
-    alert("¡Inventario actualizado con éxito!");
-    console.log(productosPeluqueria);
+console.log("\n--- REPORTE FINAL  ---");
 
-} else {
-    alert("Índice no válido. No se realizaron cambios.");
+for (const socio of padronSocios) {
+    console.log(`Socio: ${socio.nombre} | Categoría: ${socio.categoria} | Cuota Actual: $${socio.cuotaBase}`);
 }
-function reportarInventario(productosProductos) {
-console.log("LISTA DE STOCK DISPONIBLE EN SALÓN");
-for (const producto of productosPeluqueria) {
-    console.log(`Producto: ${producto}`);
- }
-}
-reportarInventario(productosPeluqueria);
